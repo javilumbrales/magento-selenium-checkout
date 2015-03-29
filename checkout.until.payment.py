@@ -18,7 +18,10 @@ class CheckoutUntilPayment(unittest.TestCase):
     def test_42moto_checkout_until_payment(self):
         driver = self.driver
         driver.get(self.base_url + "/")
-        driver.find_element_by_css_selector("#sm_megamenu_45 > span.sm_megamenu_icon.sm_megamenu_nodesc > span.sm_megamenu_title").click()
+        links = driver.find_elements_by_xpath('//div[@class="menu-top"]//ul[contains(@class, "menu")]//li/a')
+        #for link in links:
+            #print link
+        links[0].click()
         driver.find_element_by_css_selector("img.first_image").click()
         driver.find_element_by_xpath("//button[@type='button']").click()
         driver.find_element_by_css_selector("#btccart > span").click()

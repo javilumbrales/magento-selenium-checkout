@@ -12,6 +12,8 @@ env:
     - DEPS=true
     - DEPS=false
 
+install:
+    - pip install -r requirements.pip
 script:
     - python checkout.until.payment.py
 

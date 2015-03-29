@@ -14,13 +14,14 @@ class CheckoutUntilPayment(unittest.TestCase):
         self.base_url = "http://www.42moto.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
+        self.driver.maximize_window()
 
     def test_42moto_checkout_until_payment(self):
         driver = self.driver
         driver.get(self.base_url + "/")
         links = driver.find_elements_by_xpath('//div[@class="menu-top"]//ul[contains(@class, "menu")]//li/a')
-        #for link in links:
-            #print link
+        for link in links:
+            print link.text
         links[0].click()
         driver.find_element_by_css_selector("img.first_image").click()
         driver.find_element_by_xpath("//button[@type='button']").click()

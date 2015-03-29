@@ -8,4 +8,4 @@ This projects aims to create a automated browser tests with Selenium Webdriver t
 
 ## Running the tests
 
-- python 42moto.checkout.until.payment.step.py
+- python checkout.until.payment.py

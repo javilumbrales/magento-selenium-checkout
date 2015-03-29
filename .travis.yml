@@ -13,7 +13,7 @@ env:
     - DEPS=false
 
 script:
-    - python 42moto.checkout.until.payment.step.py
+    - python checkout.until.payment.py
 
 before_script:
     # ...

@@ -7,14 +7,14 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
-class 42motoCheckoutUntilPayment(unittest.TestCase):
+class CheckoutUntilPayment(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
         self.base_url = "http://www.42moto.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
-    
+
     def test_42moto_checkout_until_payment(self):
         driver = self.driver
         driver.get(self.base_url + "/")
@@ -43,17 +43,17 @@ class 42motoCheckoutUntilPayment(unittest.TestCase):
         driver.find_element_by_id("billing:telephone").send_keys("322343")
         driver.find_element_by_css_selector("#billing-buttons-container > button.button").click()
         driver.find_element_by_css_selector("#shipping-method-buttons-container > button.button").click()
-    
+
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
         except NoSuchElementException, e: return False
         return True
-    
+
     def is_alert_present(self):
         try: self.driver.switch_to_alert()
         except NoAlertPresentException, e: return False
         return True
-    
+
     def close_alert_and_get_its_text(self):
         try:
             alert = self.driver.switch_to_alert()
@@ -64,7 +64,7 @@ class 42motoCheckoutUntilPayment(unittest.TestCase):
                 alert.dismiss()
             return alert_text
         finally: self.accept_next_alert = True
-    
+
     def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)

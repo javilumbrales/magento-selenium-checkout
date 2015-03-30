@@ -37,34 +37,46 @@ class CheckoutUntilPayment(unittest.TestCase):
         driver = self.driver
         driver.get(self.base_url + "/")
         print "Home page loaded"
+
+
         #print driver.page_source.encode('utf-8')
+        # Click on a left-hand menu section
         #links = driver.find_elements_by_xpath('//div[@class="menu-top"]//ul[contains(@class, "menu")]//li/a')
         links = driver.find_elements_by_xpath("id('yt_sidenav')/li/a")
         #for link in links:
         #    print link.text
         print "Going to section " + links[2].text
         links[2].click()
+
+        # Click on a product
         print driver.current_url
         products = driver.find_elements_by_xpath("id('catalog-listing')//h2[@class='product-name']/a")
-
         #print "Opening product page of " + products[0].get_attribute('title').encode('utf-8')
         print "Opening product page of " + products[0].text.encode('utf-8')
         products[0].click()
         self.wait_for(page_has_loaded)
 
         print driver.current_url
-
         driver.implicitly_wait(5)
 
+        # Add product to the cart
         driver.find_element_by_xpath("//button[contains(@class,'btn-cart')]").click()
         self.wait_for(page_has_loaded)
 
         print "Adding product to the cart"
         driver.find_element_by_css_selector("#btccart > span").click()
-        print "Loaded page " + driver.title.encode('utf-8')
+        self.wait_for(page_has_loaded)
+
+        print "Loaded cart page " + driver.title.encode('utf-8')
         driver.find_element_by_xpath("(//button[@type='button'])[4]").click()
-        print "Loaded page " + driver.title.encode('utf-8')
+        self.wait_for(page_has_loaded)
+
+        print "Loaded checkout page " + driver.title.encode('utf-8')
+
+        # Checkout as guest
         driver.find_element_by_id("login:guest").click()
+        self.wait_for(page_has_loaded)
+
         print "Entering user details"
         driver.find_element_by_css_selector("div.col-1.hidden-m > div.buttons-set > #onepage-guest-register-button").click()
         driver.find_element_by_id("billing:firstname").clear()
@@ -84,6 +96,8 @@ class CheckoutUntilPayment(unittest.TestCase):
         driver.find_element_by_id("billing:telephone").clear()
         driver.find_element_by_id("billing:telephone").send_keys("322343")
         driver.find_element_by_css_selector("#billing-buttons-container > button.button").click()
+        self.wait_for(page_has_loaded)
+
         print "Shipping section successfully loaded."
         driver.find_element_by_id("s_method_flatrate_flatrate").click()
         driver.find_element_by_css_selector("#shipping-method-buttons-container > button.button").click()

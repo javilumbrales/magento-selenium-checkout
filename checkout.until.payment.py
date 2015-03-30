@@ -59,7 +59,7 @@ class CheckoutUntilPayment(unittest.TestCase):
         self.wait_for(page_has_loaded)
 
         print driver.current_url
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(30)
 
         # Add product to the cart
         driver.find_element_by_xpath("//button[contains(@class,'btn-cart')]").click()
@@ -68,7 +68,7 @@ class CheckoutUntilPayment(unittest.TestCase):
         print "Adding product to the cart"
         driver.find_element_by_css_selector("#btccart > span").click()
         self.wait_for(page_has_loaded)
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(30)
 
         print "Loaded cart page " + driver.title.encode('utf-8')
         checkout_buttons = driver.find_elements_by_xpath("//ul[@class='checkout-types']//button[contains(@class, 'btn-checkout')]")
@@ -77,7 +77,7 @@ class CheckoutUntilPayment(unittest.TestCase):
         checkout_buttons[0].click()
 
         self.wait_for(page_has_loaded)
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(30)
 
         #print driver.find_element_by_css_selector("BODY").text,
         print "Loaded checkout page " + driver.title.encode('utf-8')

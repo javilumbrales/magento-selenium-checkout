@@ -70,7 +70,9 @@ class CheckoutUntilPayment(unittest.TestCase):
         print "Loaded cart page " + driver.title.encode('utf-8')
         driver.find_element_by_xpath("(//button[@type='button'])[4]").click()
         self.wait_for(page_has_loaded)
+        driver.implicitly_wait(5)
 
+        print driver.find_element_by_css_selector("BODY").text,
         print "Loaded checkout page " + driver.title.encode('utf-8')
 
         # Checkout as guest

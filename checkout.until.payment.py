@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait 
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
@@ -30,8 +30,8 @@ class CheckoutUntilPayment(unittest.TestCase):
     def test_checkout_until_payment(self):
         driver = self.driver
         driver.get(self.base_url + "/")
-	print "Home page loaded"
-	#print driver.page_source.encode('utf-8')
+        print "Home page loaded"
+        #print driver.page_source.encode('utf-8')
         #links = driver.find_elements_by_xpath('//div[@class="menu-top"]//ul[contains(@class, "menu")]//li/a')
         links = driver.find_elements_by_xpath("id('yt_sidenav')/li/a")
         #for link in links:
@@ -39,15 +39,24 @@ class CheckoutUntilPayment(unittest.TestCase):
         print "Going to section " + links[1].text
         links[1].click()
         driver.find_element_by_css_selector("img.first_image").click()
-	print "Opening product page of " + driver.title.encode('utf-8')
+        def page_has_loaded():
+            page_state = driver.execute_script(
+                'return document.readyState;'
+            )
+            return page_state == 'complete'
+
+        self.wait_for(page_has_loaded)
+        print "Opening product page of " + driver.title.encode('utf-8')
         driver.find_element_by_xpath("//button[contains(@class,'btn-cart')]").click()
-	print "Adding product to the cart"
+
+        self.wait_for(page_has_loaded)
+        print "Adding product to the cart"
         driver.find_element_by_css_selector("#btccart > span").click()
-	print "Loaded page " + driver.title.encode('utf-8')
+        print "Loaded page " + driver.title.encode('utf-8')
         driver.find_element_by_xpath("(//button[@type='button'])[4]").click()
-	print "Loaded page " + driver.title.encode('utf-8')
+        print "Loaded page " + driver.title.encode('utf-8')
         driver.find_element_by_id("login:guest").click()
-	print "Entering user details"
+        print "Entering user details"
         driver.find_element_by_css_selector("div.col-1.hidden-m > div.buttons-set > #onepage-guest-register-button").click()
         driver.find_element_by_id("billing:firstname").clear()
         driver.find_element_by_id("billing:firstname").send_keys("test")
@@ -101,6 +110,16 @@ class CheckoutUntilPayment(unittest.TestCase):
             return alert_text
         finally: self.accept_next_alert = True
 
+    def wait_for(self, condition_function):
+        start_time = time.time()
+        while time.time() < start_time + 5:
+            if condition_function():
+                return True
+            else:
+                time.sleep(0.1)
+        raise Exception(
+            'Timeout waiting for {}'.format(condition_function.__name__)
+        )
 
     def tearDown(self):
         self.driver.quit()

@@ -5,9 +5,20 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait 
+from selenium.webdriver.support import expected_conditions
+
+
 import unittest, time, re
+from xvfbwrapper import Xvfb
 
 class CheckoutUntilPayment(unittest.TestCase):
+    def __init__(self, *args, **kwargs):
+        super(CheckoutUntilPayment, self).__init__(*args, **kwargs)
+        self.vdisplay = Xvfb(width=1280, height=720)
+        self.vdisplay.start()
+
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -16,18 +27,27 @@ class CheckoutUntilPayment(unittest.TestCase):
         self.accept_next_alert = True
         self.driver.maximize_window()
 
-    def test_42moto_checkout_until_payment(self):
+    def test_checkout_until_payment(self):
         driver = self.driver
         driver.get(self.base_url + "/")
-        links = driver.find_elements_by_xpath('//div[@class="menu-top"]//ul[contains(@class, "menu")]//li/a')
-        for link in links:
-            print link.text
-        links[0].click()
+	print "Home page loaded"
+	#print driver.page_source.encode('utf-8')
+        #links = driver.find_elements_by_xpath('//div[@class="menu-top"]//ul[contains(@class, "menu")]//li/a')
+        links = driver.find_elements_by_xpath("id('yt_sidenav')/li/a")
+        #for link in links:
+        #    print link.text
+        print "Going to section " + links[1].text
+        links[1].click()
         driver.find_element_by_css_selector("img.first_image").click()
+	print "Opening product page of " + driver.title.encode('utf-8')
         driver.find_element_by_xpath("//button[@type='button']").click()
+	print "Added product to the cart"
         driver.find_element_by_css_selector("#btccart > span").click()
+	print "Loaded page " + driver.title.encode('utf-8')
         driver.find_element_by_xpath("(//button[@type='button'])[4]").click()
+	print "Loaded page " + driver.title.encode('utf-8')
         driver.find_element_by_id("login:guest").click()
+	print "Entering user details"
         driver.find_element_by_css_selector("div.col-1.hidden-m > div.buttons-set > #onepage-guest-register-button").click()
         driver.find_element_by_id("billing:firstname").clear()
         driver.find_element_by_id("billing:firstname").send_keys("test")
@@ -46,7 +66,19 @@ class CheckoutUntilPayment(unittest.TestCase):
         driver.find_element_by_id("billing:telephone").clear()
         driver.find_element_by_id("billing:telephone").send_keys("322343")
         driver.find_element_by_css_selector("#billing-buttons-container > button.button").click()
+	print "Shipping section successfully loaded."
+	driver.find_element_by_id("s_method_flatrate_flatrate").click()
         driver.find_element_by_css_selector("#shipping-method-buttons-container > button.button").click()
+
+        #browser.find_element_by_link_text('my link').click()
+        WebDriverWait(driver, 5).until(
+            expected_conditions.text_to_be_present_in_element(
+                (By.ID, 'checkout-payment-method-load'),
+                'You will be redirected to the PayPal website when you place an order.'
+            )
+        )
+	print "Payment section successfully loaded."
+	#self.assertRegexpMatches(driver.find_element_by_css_selector("BODY").text, r"^[\s\S]*You will be redirected to the PayPal website when you place an order.[\s\S]*$")
 
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
@@ -69,9 +101,13 @@ class CheckoutUntilPayment(unittest.TestCase):
             return alert_text
         finally: self.accept_next_alert = True
 
+
     def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
+
+    def kill(self):
+        self.vdisplay.stop()
 
 if __name__ == "__main__":
     unittest.main()

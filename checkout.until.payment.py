@@ -45,13 +45,17 @@ class CheckoutUntilPayment(unittest.TestCase):
         print "Going to section " + links[2].text
         links[2].click()
         print driver.current_url
-        products = driver.find_elements_by_xpath("id('catalog-listing')//a[contains(@class, 'product-image')]")
+        products = driver.find_elements_by_xpath("id('catalog-listing')//h2[@class='product-name']/a")
 
-        print "Opening product page of " + products[0].get_attribute('title').encode('utf-8')
+        #print "Opening product page of " + products[0].get_attribute('title').encode('utf-8')
+        print "Opening product page of " + products[0].text.encode('utf-8')
         products[0].click()
         self.wait_for(page_has_loaded)
+
         print driver.current_url
+
         driver.implicitly_wait(5)
+
         driver.find_element_by_xpath("//button[contains(@class,'btn-cart')]").click()
         self.wait_for(page_has_loaded)
 

@@ -38,6 +38,8 @@ class CheckoutUntilPayment(unittest.TestCase):
         driver.get(self.base_url + "/")
         print "Home page loaded"
 
+        # Accept cookies
+        driver.find_element_by_xpath("id('notice-cookie-block')//button").click()
 
         #print driver.page_source.encode('utf-8')
         # Click on a left-hand menu section
@@ -68,7 +70,10 @@ class CheckoutUntilPayment(unittest.TestCase):
         self.wait_for(page_has_loaded)
 
         print "Loaded cart page " + driver.title.encode('utf-8')
-        driver.find_element_by_xpath("(//button[@type='button'])[4]").click()
+        checkout_buttons = driver.find_elements_by_xpath("//ul[@class='checkout-types']//button[contains(@class, 'btn-checkout')]")
+        print checkout_buttons[0].text
+        checkout_buttons[0].click()
+
         self.wait_for(page_has_loaded)
         driver.implicitly_wait(5)
 

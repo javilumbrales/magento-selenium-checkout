@@ -22,12 +22,18 @@ class CheckoutUntilPayment(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = "http://www.42moto.com/"
+        self.base_url = "http://www.42moto.com"
         self.verificationErrors = []
         self.accept_next_alert = True
         self.driver.maximize_window()
 
     def test_checkout_until_payment(self):
+        def page_has_loaded():
+            page_state = driver.execute_script(
+                'return document.readyState;'
+            )
+            return page_state == 'complete'
+
         driver = self.driver
         driver.get(self.base_url + "/")
         print "Home page loaded"
@@ -38,15 +44,12 @@ class CheckoutUntilPayment(unittest.TestCase):
         #    print link.text
         print "Going to section " + links[1].text
         links[1].click()
-        driver.find_element_by_css_selector("img.first_image").click()
-        def page_has_loaded():
-            page_state = driver.execute_script(
-                'return document.readyState;'
-            )
-            return page_state == 'complete'
 
+        products = driver.find_elements_by_xpath("id('catalog-listing')//a[contains(@class, 'product-image')]")
+
+        print "Opening product page of " + products[0].get_attribute('title').encode('utf-8')
+        products[0].click()
         self.wait_for(page_has_loaded)
-        print "Opening product page of " + driver.title.encode('utf-8')
         driver.find_element_by_xpath("//button[contains(@class,'btn-cart')]").click()
 
         self.wait_for(page_has_loaded)

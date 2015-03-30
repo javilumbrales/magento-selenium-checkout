@@ -1,16 +1,6 @@
 language: python
 python:
-    - 2.6
     - 2.7
-    - pypy
-    - 3.2
-    - 3.3
-    - 3.4
-    - pypy3
-
-env:
-    - DEPS=true
-    - DEPS=false
 
 install:
     - pip install -r requirements.pip
@@ -18,6 +8,6 @@ script:
     - python checkout.until.payment.py
 
 before_script:
-    - "wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar"
-    - "java -jar selenium-server-standalone-2.45.0.jar > /dev/null &"
-    - sleep 5
+    #- "wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar"
+    #- "java -jar selenium-server-standalone-2.45.0.jar > /dev/null &"
+    #- sleep 5

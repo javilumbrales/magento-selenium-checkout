@@ -44,15 +44,16 @@ class CheckoutUntilPayment(unittest.TestCase):
         #    print link.text
         print "Going to section " + links[1].text
         links[1].click()
-
+	print driver.current_url
         products = driver.find_elements_by_xpath("id('catalog-listing')//a[contains(@class, 'product-image')]")
 
         print "Opening product page of " + products[0].get_attribute('title').encode('utf-8')
         products[0].click()
         self.wait_for(page_has_loaded)
+	print driver.current_url
         driver.find_element_by_xpath("//button[contains(@class,'btn-cart')]").click()
-
         self.wait_for(page_has_loaded)
+
         print "Adding product to the cart"
         driver.find_element_by_css_selector("#btccart > span").click()
         print "Loaded page " + driver.title.encode('utf-8')

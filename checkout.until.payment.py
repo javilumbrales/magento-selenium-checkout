@@ -42,8 +42,8 @@ class CheckoutUntilPayment(unittest.TestCase):
         links = driver.find_elements_by_xpath("id('yt_sidenav')/li/a")
         #for link in links:
         #    print link.text
-        print "Going to section " + links[1].text
-        links[1].click()
+        print "Going to section " + links[2].text
+        links[2].click()
         print driver.current_url
         products = driver.find_elements_by_xpath("id('catalog-listing')//a[contains(@class, 'product-image')]")
 
@@ -51,7 +51,7 @@ class CheckoutUntilPayment(unittest.TestCase):
         products[0].click()
         self.wait_for(page_has_loaded)
         print driver.current_url
-        driver.implicitly_wait(3)
+        driver.implicitly_wait(5)
         driver.find_element_by_xpath("//button[contains(@class,'btn-cart')]").click()
         self.wait_for(page_has_loaded)
 

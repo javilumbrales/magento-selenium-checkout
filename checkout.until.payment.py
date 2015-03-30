@@ -30,8 +30,8 @@ class CheckoutUntilPayment(unittest.TestCase):
     def test_checkout_until_payment(self):
         def page_has_loaded():
             page_state = driver.execute_script(
-                'return document.readyState;'
-            )
+                    'return document.readyState;'
+                    )
             return page_state == 'complete'
 
         driver = self.driver
@@ -80,19 +80,19 @@ class CheckoutUntilPayment(unittest.TestCase):
         driver.find_element_by_id("billing:telephone").clear()
         driver.find_element_by_id("billing:telephone").send_keys("322343")
         driver.find_element_by_css_selector("#billing-buttons-container > button.button").click()
-	print "Shipping section successfully loaded."
-	driver.find_element_by_id("s_method_flatrate_flatrate").click()
+        print "Shipping section successfully loaded."
+        driver.find_element_by_id("s_method_flatrate_flatrate").click()
         driver.find_element_by_css_selector("#shipping-method-buttons-container > button.button").click()
 
         #browser.find_element_by_link_text('my link').click()
         WebDriverWait(driver, 5).until(
-            expected_conditions.text_to_be_present_in_element(
-                (By.ID, 'checkout-payment-method-load'),
-                'You will be redirected to the PayPal website when you place an order.'
-            )
-        )
-	print "Payment section successfully loaded."
-	#self.assertRegexpMatches(driver.find_element_by_css_selector("BODY").text, r"^[\s\S]*You will be redirected to the PayPal website when you place an order.[\s\S]*$")
+                expected_conditions.text_to_be_present_in_element(
+                    (By.ID, 'checkout-payment-method-load'),
+                    'You will be redirected to the PayPal website when you place an order.'
+                    )
+                )
+        print "Payment section successfully loaded."
+        #self.assertRegexpMatches(driver.find_element_by_css_selector("BODY").text, r"^[\s\S]*You will be redirected to the PayPal website when you place an order.[\s\S]*$")
 
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
@@ -123,11 +123,11 @@ class CheckoutUntilPayment(unittest.TestCase):
             else:
                 time.sleep(0.1)
         raise Exception(
-            'Timeout waiting for {}'.format(condition_function.__name__)
-        )
+                'Timeout waiting for {}'.format(condition_function.__name__)
+                )
 
-    def tearDown(self):
-        self.driver.quit()
+        def tearDown(self):
+            self.driver.quit()
         self.assertEqual([], self.verificationErrors)
 
     def kill(self):

@@ -40,8 +40,8 @@ class CheckoutUntilPayment(unittest.TestCase):
         links[1].click()
         driver.find_element_by_css_selector("img.first_image").click()
 	print "Opening product page of " + driver.title.encode('utf-8')
-        driver.find_element_by_xpath("//button[@type='button']").click()
-	print "Added product to the cart"
+        driver.find_element_by_xpath("//button[contains(@class,'btn-cart')]").click()
+	print "Adding product to the cart"
         driver.find_element_by_css_selector("#btccart > span").click()
 	print "Loaded page " + driver.title.encode('utf-8')
         driver.find_element_by_xpath("(//button[@type='button'])[4]").click()

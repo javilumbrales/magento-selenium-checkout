@@ -82,7 +82,7 @@ class CheckoutUntilPayment(unittest.TestCase):
         print "Loaded checkout page " + driver.title.encode('utf-8')
 
         # Checkout as guest
-        driver.find_element_by_id("login:guest").click()
+        driver.find_element_by_id("onepage-guest-register-button").click()
         self.wait_for(page_has_loaded)
 
         print "Entering user details"

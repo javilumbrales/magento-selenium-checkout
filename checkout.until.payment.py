@@ -86,7 +86,6 @@ class CheckoutUntilPayment(unittest.TestCase):
         self.wait_for(page_has_loaded)
 
         print "Entering user details"
-        driver.find_element_by_css_selector("div.col-1.hidden-m > div.buttons-set > #onepage-guest-register-button").click()
         driver.find_element_by_id("billing:firstname").clear()
         driver.find_element_by_id("billing:firstname").send_keys("test")
         driver.find_element_by_id("billing:lastname").clear()

@@ -10,7 +10,15 @@ This projects aims to create a automated browser tests with Selenium Webdriver t
 
 ## Running the tests
 
-- python checkout.until.payment.py
+```python checkout.until.payment.py www.42moto.com```
+
+## WIP
+
+- Use more stable/generic element selectors
+- Add a settings file for selectors, assertion texts, etc.
+- Use Gherkin like tests
+- Add logged in tests
+- many, many more
 
 ## About
 

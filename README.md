@@ -1,3 +1,5 @@
+Build status: [![Build Status](https://travis-ci.org/javilumbrales/magento-selenium-checkout.svg?branch=master)](https://travis-ci.org/javilumbrales/magento-selenium-checkout)
+
 ## Scope
 This projects aims to create a automated browser tests with Selenium Webdriver to test a generic Magento Checkout.
 

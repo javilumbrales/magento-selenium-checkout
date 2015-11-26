@@ -5,7 +5,7 @@ python:
 install:
     - pip install -r requirements.pip
 script:
-    - python checkout.until.payment.py www.42moto.com
+    - python checkout.until.payment.py "www.42moto.com"
 
 before_script:
     #- "wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar"

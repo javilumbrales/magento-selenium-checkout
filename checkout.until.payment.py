@@ -25,7 +25,7 @@ class CheckoutUntilPayment(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = BASE_URL
+        self.base_url = self.BASE_URL
         self.verificationErrors = []
         self.accept_next_alert = True
         self.driver.maximize_window()

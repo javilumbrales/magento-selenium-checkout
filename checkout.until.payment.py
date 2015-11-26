@@ -14,6 +14,9 @@ import unittest, time, re
 from xvfbwrapper import Xvfb
 
 class CheckoutUntilPayment(unittest.TestCase):
+    # Default base url, overridable by commandline argument
+    BASE_URL = www.42moto.com
+    
     def __init__(self, *args, **kwargs):
         super(CheckoutUntilPayment, self).__init__(*args, **kwargs)
         self.vdisplay = Xvfb(width=1280, height=720)
@@ -22,7 +25,7 @@ class CheckoutUntilPayment(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = sys.argv[1]
+        self.base_url = BASE_URL
         self.verificationErrors = []
         self.accept_next_alert = True
         self.driver.maximize_window()
@@ -161,4 +164,6 @@ class CheckoutUntilPayment(unittest.TestCase):
         self.vdisplay.stop()
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        CheckoutUntilPayment.BASE_URL = sys.argv.pop()
     unittest.main()

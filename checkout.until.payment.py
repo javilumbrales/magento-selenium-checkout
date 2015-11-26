@@ -82,7 +82,7 @@ class CheckoutUntilPayment(unittest.TestCase):
         print "Loaded checkout page " + driver.title.encode('utf-8')
 
         # Checkout as new user
-        driver.find_element_by_css_selector("#checkout-step-login > div.show-m > button").click()
+        driver.find_element_by_css_selector("div.hidden-m > div > button").click()
         self.wait_for(page_has_loaded)
 
         print "Entering user details"

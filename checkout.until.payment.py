@@ -15,7 +15,7 @@ from xvfbwrapper import Xvfb
 
 class CheckoutUntilPayment(unittest.TestCase):
     # Default base url, overridable by commandline argument
-    BASE_URL = www.42moto.com
+    BASE_URL = "www.42moto.com"
     
     def __init__(self, *args, **kwargs):
         super(CheckoutUntilPayment, self).__init__(*args, **kwargs)

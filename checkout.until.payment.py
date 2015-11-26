@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
-
+import sys
 import unittest, time, re
 from xvfbwrapper import Xvfb
 
@@ -22,7 +22,7 @@ class CheckoutUntilPayment(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = "http://www.42moto.com"
+        self.base_url = sys.argv[1]
         self.verificationErrors = []
         self.accept_next_alert = True
         self.driver.maximize_window()

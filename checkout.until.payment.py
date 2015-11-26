@@ -39,11 +39,10 @@ class CheckoutUntilPayment(unittest.TestCase):
         print "Home page loaded"
 
         # Accept cookies
-        driver.find_element_by_xpath("id('notice-cookie-block')//button").click()
+        #driver.find_element_by_xpath("id('notice-cookie-block')//button").click()
 
         #print driver.page_source.encode('utf-8')
         # Click on a left-hand menu section
-        #links = driver.find_elements_by_xpath('//div[@class="menu-top"]//ul[contains(@class, "menu")]//li/a')
         links = driver.find_elements_by_xpath("id('yt_sidenav')/li/a")
         #for link in links:
         #    print link.text

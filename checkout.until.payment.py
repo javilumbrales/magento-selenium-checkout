@@ -102,6 +102,8 @@ class CheckoutUntilPayment(unittest.TestCase):
         driver.find_element_by_id("billing:postcode").send_keys("test")
         driver.find_element_by_id("billing:telephone").clear()
         driver.find_element_by_id("billing:telephone").send_keys("322343")
+        driver.find_element_by_id("billing:customer_password").send_keys("ABCDEF")
+        driver.find_element_by_id("billing:confirm_password").send_keys("ABCDEF")
         driver.find_element_by_css_selector("#billing-buttons-container > button.button").click()
         self.wait_for(page_has_loaded)
 
